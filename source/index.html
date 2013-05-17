@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+{% for post in paginator.posts %}
+{% assign content = post.content %}
+<article>
+  <div class="article-header clear">
+    <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+    <a data-pocket-label="pocket" data-save-url="{{ site.url }}{% if post.url %}{{ post.url }}{% else %}{{ page.url }}{% endif %}" data-pocket-count="vertical" class="pocket-btn" data-lang="en"></a><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    <p>{% include post/date.html %}{{ time }} {% include post/author.html %}</p>
+  </div>
+  
+  {{ content }}
+
+  {% include post/sharing.html %}
+</article>
+{% endfor %}
+
+{% if paginator.previous_page || paginator.next_page %}
+<nav class="pager">
+  {% if paginator.previous_page %}
+  <a class="prev" href="{{paginator.previous_page}}">&larr; Older</a>
+  {% endif %}
+  {% if paginator.next_page %}
+  <a class="next" href="{{paginator.next_page}}">Newer &rarr;</a>
+  {% endif %}
+</nav>
+{% endif %}

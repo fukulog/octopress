@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <meta name="author" content="{{ site.author }}">
+  {% capture description %}{% if page.description %}{{ page.description }}{% else %}{{ content | raw_content }}{% endif %}{% endcapture %}
+  <meta name="description" content="{% if page.title %}{{ description | strip_html | condense_spaces | truncate:150 }}{% else %}{{ site.description }}{% endif %}">
+  {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no" />
+
+  <meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}">
+  <meta property="og:description" content="{% if page.title %}{{ description | strip_html | condense_spaces | truncate:150 }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:image" content="{{ site.url }}/images/sitelogo_square_180_180.png">
+  <meta property="og:url" content="{{ site.url }}{% if post.url %}{{ post.url }}{% else %}{{ page.url }}{% endif %}">
+
+  {% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' | strip_slash }}{% endif %}{% endcapture %}
+  <link rel="apple-touch-icon-precomposed" href="/images/webicon.png">
+  <link rel="canonical" href="{{ canonical }}/">
+  <link href="/stylesheets/screen.css" rel="stylesheet">
+  <link href="{{ site.subscribe_rss }}" rel="alternate" title="{{site.title}}" type="application/atom+xml">
+  {% include google_analytics.html %}
+</head>
+<body>
+  {% include facebook_like.html %}
+  <div class="wrapper">
+    <header>
+      <a href="/"><img src="/images/fukulog_logo_s.gif" alt="FUKULOG"></a>
+      <h1><a href="/">{{ site.title }}</a></h1>
+      <p>{{ site.subtitle }}</p>
+      <ul>
+        <li><a href="{{ site.subscribe_rss }}" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        <li><a href="/blog/archives">アーカイブ</a></li>
+      </ul>
+<!--
+      <form action="{{ site.simple_search }}" method="get">
+        <input type="hidden" name="q" value="site:{{ site.url | shorthand_url }}" />
+        <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+      </form>
+-->
+    </header>
+
+    <section>
+      {{ content }}
+    </section>
+
+    <footer>
+      <dl>
+        <dt>最近の投稿</dt>
+        {% for post in site.posts limit: site.recent_posts %}
+        <dd><a href="{{ post.url }}">{{ post.title }}</a></dd>
+        {% endfor %}
+      </dl>
+      <dl>
+        <dt>リンク</dt>
+        <dd><a href="http://fukulog.jp/recruit#r_engineer"><img src="/images/recruit.jpg" alt="【求人】FUKULOGを一緒に作るシステムエンジニアを募集中" title="【求人】FUKULOGを一緒に作るシステムエンジニアを募集中"></a></dd>
+        <dd><a href="http://fukulog.jp">&raquo; FUKULOG</a></dd>
+      </dl>
+    </footer>
+  </div>
+</body>
+</html>
